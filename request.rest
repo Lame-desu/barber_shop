@@ -1,0 +1,43 @@
+# POST http://localhost:5000/api/auth/register
+# Content-Type: application/json
+# Authorization: Bearer YOUR_TOKEN_HERE
+
+# {
+#   "name": "Lamesgin Desalegn",
+#   "email": "admin@gmail.com",
+#   "password": "123456",
+#   "phone": "+251911234",
+#   "role": "admin"
+# }
+
+# POST http://localhost:5000/api/auth/register
+# Content-Type: application/json
+# Authorization: Bearer YOUR_TOKEN_HERE
+
+# {
+#   "name": "Lamesgin Desalegn",
+#   "email": "lamesgin1@gmail.com",
+#   "password": "123456",
+#   "phone": "+251911234",
+#   "role": "barber"
+# }
+
+# POST http://localhost:5000/api/auth/register
+# Content-Type: application/json
+# Authorization: Bearer YOUR_TOKEN_HERE
+
+# {
+#   "name": "Lamesgin Desalegn",
+#   "email": "lamesgin2@gmail.com",
+#   "password": "123456",
+#   "phone": "+251911234",
+#   "role": "barber"
+# }
+
+
+### Delete a barber appointment by ID
+POST http://localhost:5000/api/barber/appointments/1/delete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsInJvbGUiOiJiYXJiZXIiLCJpYXQiOjE3NDk2MTY2MTgsImV4cCI6MTc0OTYyMzgxOH0.PrB8vLji20kGtIqeCSJe7fyYCFu8YJ0907TQ0kgvFlM
+Content-Type: application/json
+
+{}
