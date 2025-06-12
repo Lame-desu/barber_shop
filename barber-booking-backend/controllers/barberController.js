@@ -3,7 +3,6 @@ const pool = require("../db");
 
 // Get all appointments for this barber
 exports.getBarberAppointments = async (req, res) => {
-  console.log("Fetching appointments for barber:", req.user.id);
   const barberId = req.user.id;
   try {
     const appointments = await pool.query(
@@ -80,10 +79,8 @@ exports.getBarberDetails = async (req, res) => {
 
 // Delete canceled appointment
 exports.deleteCanceledAppointment = async (req, res) => {
-  console.log("Deleting canceled appointment for barber:", req.user.id);
   const barberId = req.user.id;
   const appointmentId = req.params.id;
-  console.log(barberId, appointmentId);
   try {
     // Check if the appointment belongs to this barber and is canceled
     const result = await pool.query(

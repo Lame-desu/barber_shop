@@ -22,7 +22,6 @@ exports.getCustomerAppointment = async (req, res) => {
     if (result.rows.length === 0) {
       return res.json({ hasAppointment: false });
     }
-    console.log(result.rows);
     res.json({
       hasAppointment: true,
       appointment: result.rows,
@@ -77,7 +76,6 @@ exports.getBarbers = async (req, res) => {
             JOIN services s ON s.id = u.id
             WHERE u.role = 'barber'
         `);
-    console.log(barbers.rows);
     res.json(barbers.rows);
   } catch (err) {
     console.error(err);
@@ -88,7 +86,6 @@ exports.getBarbers = async (req, res) => {
 exports.bookAppointment = async (req, res) => {
   const { barber_id, service_id, appointment_time } = req.body;
   const customer_id = req.user.id;
-  console.log(customer_id, barber_id, service_id, appointment_time);
 
   try {
     await pool.query(

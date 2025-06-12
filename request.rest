@@ -15,8 +15,8 @@
 # Authorization: Bearer YOUR_TOKEN_HERE
 
 # {
-#   "name": "Lamesgin Desalegn",
-#   "email": "lamesgin1@gmail.com",
+#   "name": "Abebe Kebede",
+#   "email": "barber1@gmail.com",
 #   "password": "123456",
 #   "phone": "+251911234",
 #   "role": "barber"
@@ -27,8 +27,45 @@
 # Authorization: Bearer YOUR_TOKEN_HERE
 
 # {
-#   "name": "Lamesgin Desalegn",
-#   "email": "lamesgin2@gmail.com",
+#   "name": "Mulugeta Teshome",
+#   "email": "barber2@gmail.com",
+#   "password": "123456",
+#   "phone": "+251911234",
+#   "role": "barber"
+# }
+
+
+# POST http://localhost:5000/api/auth/register
+# Content-Type: application/json
+# Authorization: Bearer YOUR_TOKEN_HERE
+
+# {
+#   "name": "Selamawit Getachew",
+#   "email": "barber3@gmail.com",
+#   "password": "123456",
+#   "phone": "+251911234",
+#   "role": "barber"
+# }
+
+# POST http://localhost:5000/api/auth/register
+# Content-Type: application/json
+# Authorization: Bearer YOUR_TOKEN_HERE
+
+# {
+#   "name": "Yidnekachew Eyasu",
+#   "email": "barber4@gmail.com",
+#   "password": "123456",
+#   "phone": "+251911234",
+#   "role": "barber"
+# }
+
+# POST http://localhost:5000/api/auth/register
+# Content-Type: application/json
+# Authorization: Bearer YOUR_TOKEN_HERE
+
+# {
+#   "name": "Bezawit Girma",
+#   "email": "barber5@gmail.com",
 #   "password": "123456",
 #   "phone": "+251911234",
 #   "role": "barber"

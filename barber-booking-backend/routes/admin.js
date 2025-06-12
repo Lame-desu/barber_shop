@@ -4,7 +4,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const pool = require("../db/index.js");
 const router = express.Router();
-console.log(pool);
 // Middleware: only admin can add
 const verifyAdmin = (req, res, next) => {
   if (req.user && req.user.role === "admin") {
@@ -16,24 +15,13 @@ const verifyAdmin = (req, res, next) => {
 
 router.post("/barbers", verifyAdmin, async (req, res) => {
   try {
-    const { name, email, password, phone, services, price } = req.body;
-    console.log(services);
+    const { name, email, password, phone } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
       "INSERT INTO users (name, email, password, phone, role) VALUES ($1, $2, $3, $4, $5) RETURNING id",
       [name, email, hashedPassword, phone, "barber"]
     );
-    const barberId = result.rows[0].id;
-    console.log(result);
-
-    // Insert services (if any)
-    if (services) {
-      await pool.query(
-        "INSERT INTO services (id, name, price) VALUES ($1, $2, $3)",
-        [barberId, services, price]
-      );
-    }
 
     res.status(201).json({ message: "Barber added successfully" });
   } catch (err) {
@@ -106,30 +94,56 @@ router.get("/barber/:id", verifyAdmin, async (req, res) => {
       [barberId]
     );
 
-    const feedbacks = await pool.query(
-      `SELECT f.id, u.name as customer, f.rating, f.comment
-             FROM feedbacks f
-             JOIN users u ON f.customer_id = u.id
-             WHERE f.barber_id = $1`,
-      [barberId]
-    );
+    // const feedbacks = await pool.query(
+    //   `SELECT f.id, u.name as customer, f.rating, f.comment
+    //          FROM feedbacks f
+    //          JOIN users u ON f.customer_id = u.id
+    //          WHERE f.barber_id = $1`,
+    //   [barberId]
+    // );
 
-    const services = await pool.query(
-      `SELECT id, name, price
-       FROM services
-       WHERE id = $1`,
-      [barberId]
-    );
+    // const services = await pool.query(
+    //   `SELECT id, name, price
+    //    FROM services
+    //    WHERE id = $1`,
+    //   [barberId]
+    // );
 
     res.json({
       barber: barber.rows[0],
       appointments: appointments.rows,
-      feedbacks: feedbacks.rows,
-      services: services.rows,
+      // feedbacks: feedbacks.rows,
+      // services: services.rows,
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Add new service (admin only)
+router.post("/services", verifyAdmin, async (req, res) => {
+  const { name, price } = req.body;
+  try {
+    const result = await pool.query(
+      "INSERT INTO services (name, price) VALUES ($1, $2) RETURNING *",
+      [name, price]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add service" });
+  }
+});
+
+router.delete("/services/:id", verifyAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Optional: check if this service is in use in appointments (depends on your logic)
+    await pool.query("DELETE FROM services WHERE id = $1", [id]);
+    res.json({ message: "Service deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete service" });
   }
 });
 
